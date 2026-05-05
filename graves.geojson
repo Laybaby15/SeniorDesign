@@ -1,0 +1,65 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "full_name": "James Carter",
+        "section": "A",
+        "plot_number": "12"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.508233, 31.450201]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "full_name": "Sarah Mae Johnson",
+        "section": "B",
+        "plot_number": "3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.508110, 31.450322]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "full_name": "Robert Lee Williams",
+        "section": "A",
+        "plot_number": "13"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.508250, 31.450215]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "full_name": "Mary Elizabeth Brown",
+        "section": "A",
+        "plot_number": "14"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.508270, 31.450230]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "full_name": "John Henry Davis",
+        "section": "B",
+        "plot_number": "8"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.508150, 31.450350]
+      }
+    }
+  ]
+}

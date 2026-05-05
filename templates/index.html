@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Greenwood Cemetery</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #74B72E; /* YOUR GREEN */
+        }
+
+        .hero {
+            text-align: center;
+            padding: 30px;
+            background-color: #74B72E;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero img {
+            width: 80%;
+            max-width: 700px;
+            border-radius: 10px;
+        }
+
+        .content {
+            background-color: white;
+            margin: 30px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 8px;
+            width: 250px;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #eeeeee;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="hero">
+    <h1>Greenwood Cemetery</h1>
+    <img src="/static/greenwood.jpeg" alt="Greenwood Cemetery">
+</div>
+
+<div class="content">
+
+    <h2>Records</h2>
+
+    <input type="text" id="searchInput" placeholder="Search by name">
+    <button onclick="loadData()">Search</button>
+    <button onclick="clearSearch()">Clear</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Birth Date</th>
+                <th>Death Date</th>
+                <th>Section</th>
+                <th>Plot Number</th>
+                <th>Veteran Status</th>
+                <th>Headstone Condition</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <h2>Map</h2>
+    <div id="map"></div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+let map = L.map('map').setView([31.4502, -83.5082], 16);
+let markerLayer = null;
+let markersByName = {};
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+async function loadData() {
+    const search = document.getElementById("searchInput").value;
+
+    const response = await fetch(`/search?name=${encodeURIComponent(search)}`);
+    const data = await response.json();
+
+    const tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = "";
+
+    if (data.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="7">No results found</td>
+            </tr>
+        `;
+    } else {
+        data.forEach(row => {
+            const tr = document.createElement("tr");
+
+            tr.onclick = () => zoomToMarker(row.full_name);
+            tr.style.cursor = "pointer";
+
+            tr.innerHTML = `
+                <td>${row.full_name || ""}</td>
+                <td>${row.birth_date || ""}</td>
+                <td>${row.death_date || ""}</td>
+                <td>${row.section || ""}</td>
+                <td>${row.plot_number || ""}</td>
+                <td>${row.veteran_status || ""}</td>
+                <td>${row.headstone_condition || ""}</td>
+            `;
+
+            tableBody.appendChild(tr);
+        });
+    }
+
+    loadMapMarkers(search);
+}
+
+async function loadMapMarkers(search = "") {
+    const response = await fetch(`/geojson?name=${encodeURIComponent(search)}`);
+    const geojsonData = await response.json();
+
+    if (markerLayer !== null) {
+        map.removeLayer(markerLayer);
+    }
+
+    markersByName = {};
+
+    markerLayer = L.geoJSON(geojsonData, {
+        onEachFeature: function(feature, layer) {
+            const name = feature.properties.full_name;
+            markersByName[name] = layer;
+
+            layer.bindPopup(
+                "<b>" + (feature.properties.full_name || "") + "</b><br>" +
+                "Birth Date: " + (feature.properties.birth_date || "") + "<br>" +
+                "Death Date: " + (feature.properties.death_date || "") + "<br>" +
+                "Section: " + (feature.properties.section || "") + "<br>" +
+                "Plot: " + (feature.properties.plot_number || "") + "<br>" +
+                "Veteran: " + (feature.properties.veteran_status || "") + "<br>" +
+                "Condition: " + (feature.properties.headstone_condition || "")
+            );
+        }
+    }).addTo(map);
+
+    if (geojsonData.features.length > 0) {
+        map.fitBounds(markerLayer.getBounds());
+    }
+}
+
+function zoomToMarker(name) {
+    const marker = markersByName[name];
+
+    if (marker) {
+        map.setView(marker.getLatLng(), 18);
+        marker.openPopup();
+    }
+}
+
+function clearSearch() {
+    document.getElementById("searchInput").value = "";
+    loadData();
+}
+
+loadData();
+</script>
+
+</body>
+</html>

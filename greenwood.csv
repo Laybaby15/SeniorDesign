@@ -1,0 +1,21 @@
+record_id,full_name,birth_date,death_date,section,plot_number,latitude,longitude,veteran_status,headstone_condition,photo_file,notes
+1,James Carter,1923-04-11,1987-09-02,A,12,31.450201,-83.508233,Yes,Good,jcarter.jpg,WWII Veteran
+2,Sarah Mae Johnson,1901-02-18,1975-07-14,B,3,31.450322,-83.508110,No,Fair,sjohnson.jpg,
+3,Robert Lee Williams,1944-12-22,2005-01-10,A,13,31.450215,-83.508250,Yes,Good,rwilliams.jpg,Vietnam Veteran
+4,Infant Smith,2001-05-10,2001-05-10,C,7,31.450500,-83.508600,No,Poor,infantsmith.jpg,
+5,Mary Elizabeth Brown,1919-08-01,1999-11-19,A,14,31.450230,-83.508270,No,Good,mbrown.jpg,
+6,John Henry Davis,1930-03-05,1970-06-15,B,8,31.450350,-83.508150,Yes,Fair,jdavis.jpg,Korean War
+7,Evelyn Carter,1925-09-09,2003-02-21,A,12,31.450205,-83.508235,No,Good,ecarter.jpg,Wife of James Carter
+8,Thomas Greene,1888-01-01,1960-12-30,D,1,31.451000,-83.509000,No,Poor,tgreene.jpg,
+9,Lillian Greene,1895-03-12,1972-04-09,D,2,31.451010,-83.509020,No,Poor,lgreene.jpg,
+10,Charles Anderson,1950-07-17,2010-08-25,C,9,31.450520,-83.508620,Yes,Good,canderson.jpg,
+11,Unknown,Unknown,1940-01-01,E,1,31.452000,-83.510000,No,Poor,unknown1.jpg,Unmarked grave
+12,Emma Robinson,1933-05-22,2018-10-05,B,10,31.450370,-83.508180,No,Good,erobinson.jpg,
+13,Samuel Robinson,1930-06-01,1990-03-11,B,10,31.450375,-83.508185,Yes,Good,srobinson.jpg,
+14,Clara Davis,1929-04-14,1982-07-23,B,8,31.450355,-83.508155,No,Fair,cdavis.jpg,
+15,William Harris,1910-02-02,1968-12-12,F,4,31.453000,-83.511000,Yes,Poor,wharris.jpg,
+16,Annie Mae Thomas,1915-11-03,1988-04-12,A,15,31.450245,-83.508290,No,Good,athomas.jpg,
+17,George Thomas,1912-07-18,1979-01-30,A,15,31.450250,-83.508295,Yes,Fair,gthomas.jpg,Spouse of Annie Mae Thomas
+18,David Clark,1948-02-09,2001-06-21,C,11,31.450540,-83.508650,No,Good,dclark.jpg,
+19,Rebecca Clark,1950-03-14,2015-09-02,C,11,31.450545,-83.508655,No,Good,rclark.jpg,
+20,Unknown Child,Unknown,1935-01-01,G,2,31.454000,-83.512000,No,Poor,unknown2.jpg,Unmarked grave
